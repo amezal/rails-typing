@@ -1,0 +1,2 @@
+module TestEntriesHelper
+end
