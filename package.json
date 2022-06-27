@@ -2,5 +2,8 @@
   "devDependencies": {
     "vite": "^2.9.13",
     "vite-plugin-ruby": "^3.0.12"
+  },
+  "dependencies": {
+    "flowbite": "^1.4.7"
   }
 }
