@@ -1,8 +1,12 @@
 <%# <h1>hoalalalla</h1> %>
-<div class="center p-6 max-w-sm bg-blue-900 rounded-lg border shadow-md">
+<div data-controller="typingtest" data-action="keydown->typingtest#xd"
+  tabindex="0"
+  class="center p-8 max-w-none rounded-lg">
   <% @testwords.each do |word|%>
-        <span class="text-white">
-        <%= word %>
-        </span>
+        <div class="text-blue-400 inline mr-2 text-xl cursor-default">
+          <% word.split('').each do |lt| %>
+            <span class="table-cell font-mono"><%= "#{lt} \t" %></span>
+          <% end %>
+        </div>
   <% end %>
 </div>
