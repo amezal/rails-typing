@@ -7,9 +7,27 @@ export default class extends Controller {
     console.log('hola');
     this.position = 0;
     this.word = 0;
+    this.correct = 0;
+    //wpm = (characters/5) / minutes
   }
   xd(e) {
-    this.position++
-    console.log(this.position)
+    const word = this.element.children[this.word];
+    const length = word.childElementCount;
+
+    if (e.key === ' ') {
+      if (this.position >= length - 1) {
+        this.word++;
+        this.correct += length + 1;
+        this.position = 0
+      }
+    }
+
+    const letter = word.children[this.position];
+    const correct = letter.innerText === e.key;
+
+    if (correct && e.key !== ' ' && e.key !== 'Backspace') {
+      letter.classList.add("text-white")
+      this.position++
+    }
   }
 }
