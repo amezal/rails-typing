@@ -16,10 +16,19 @@ export default class extends Controller {
 
     if (e.key === ' ') {
       if (this.position >= length - 1) {
-        this.word++;
         this.correct += length + 1;
-        this.position = 0
       }
+
+      this.word++;
+      this.position = 0;
+      let i = this.position
+      while (i < length) {
+        console.log('hola');
+        word.children[i].classList.add("text-yellow-200");
+        i++
+      }
+
+
     }
 
     const letter = word.children[this.position];
@@ -28,6 +37,9 @@ export default class extends Controller {
     if (correct && e.key !== ' ' && e.key !== 'Backspace') {
       letter.classList.add("text-white")
       this.position++
+    }
+    if (!correct && e.key !== ' ' && e.key !== 'Backspace') {
+      letter.classList.add("text-yellow-200");
     }
   }
 }
