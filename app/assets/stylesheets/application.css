@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+.blink {
+  animation: blinker 1.2s step-end infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
