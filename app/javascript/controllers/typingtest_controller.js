@@ -11,16 +11,18 @@ export default class extends Controller {
     this.correct = 0;
     this.running = false;
     this.timeLeft = 30;
-    this.initCaret();
+    // this.initCaret();
     //wpm = (characters/5) / minutes
   }
 
   focusin(e) {
     document.querySelector('.caret').classList.remove('invisible');
-
+    this.initCaret();
   }
   focusout(e) {
     document.querySelector('.caret').classList.add('invisible');
+    document.querySelector('.caret').classList.remove('blink');
+    this.initCaret();
   }
 
   type(e) {
@@ -36,12 +38,12 @@ export default class extends Controller {
     if (this.wordPos == 0 && this.charPos == 0 &&
       word.children[0].innerText == e.key) {
       this.running = true;
-      let tick = window.setInterval(() => {
+      this.tick = window.setInterval(() => {
         this.timeLeft > 0 && this.timeLeft--;
         document.querySelector('.timer').innerText = this.timeLeft - 1;
       }, 1000);
-      window.setTimeout(() => {
-        clearInterval(tick);
+      this.timer = window.setTimeout(() => {
+        clearInterval(this.tick);
         this.timeLeft = 30;
         console.log(`wpm is: ${(Math.round(this.correct / 5) / (1 / 2))}`)
         this.saveEntry();
@@ -100,8 +102,8 @@ export default class extends Controller {
   }
 
   initCaret() {
-    let word = this.wordsTarget.children[this.wordPos];
-    const letter = word.children[this.charPos];
+    let word = this.wordsTarget.children[0];
+    const letter = word.children[0];
     const letterPos = letter.getBoundingClientRect();
     let { x, y } = letterPos;
     const caret = document.querySelector('.caret');
@@ -123,6 +125,13 @@ export default class extends Controller {
         accuracy: 100,
       })
     })
+  }
+
+  refresh() {
+    clearInterval(this.tick)
+    clearTimeout(this.timer)
+    this.connect();
+    this.focusout();
   }
 
 }

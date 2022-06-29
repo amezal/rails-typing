@@ -5,6 +5,8 @@ class HomeController < ApplicationController
     150.times do |i|
       @testwords.push(words.sample)
     end
+  end
 
+  def result
   end
 end
