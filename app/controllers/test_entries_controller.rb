@@ -30,18 +30,15 @@ class TestEntriesController < ApplicationController
   
   # POST /test_entries or /test_entries.json
   def create
-    # @test_entry = TestEntry.new(test_entry_params)
-    @test_entry = current_user.test_entry.build(test_entry_params)
+    if user_signed_in?
+      @test_entry = current_user.test_entry.build(test_entry_params)
+      @test_entry.save
+    else
+      @test_entry = TestEntry.new(test_entry_params)
+    end
 
     respond_to do |format|
-      # if @test_entry.save
-        # format.html { redirect_to test_entry_url(@test_entry), notice: "Test entry was successfully created." }
-        # format.json { render :show, status: :created, location: @test_entry }
-       format.turbo_stream {render partial: 'home/result', locals: {test_entry: @test_entry}}
-      # else
-      #   format.html { render :new, status: :unprocessable_entity }
-      #   format.json { render json: @test_entry.errors, status: :unprocessable_entity }
-      # end
+      format.turbo_stream {render partial: 'home/result', locals: {test_entry: @test_entry}}
     end
   end
 
