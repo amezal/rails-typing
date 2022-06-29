@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   root "home#index"
   get "/result", to:"home#result", as:"result"
   get "/my_profile", to:"test_entries#my_profile", as:"my_profile"
+  get "/leaderboards", to:"test_entries#leaderboards", as:"leaderboards"
 end

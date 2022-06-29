@@ -67,8 +67,18 @@ class TestEntriesController < ApplicationController
 
   def my_profile
     @test_entries = TestEntry.where("user_id = ?", current_user).order(created_at: :desc)
-    # @test_entries.
-    @xd = 'hola'
+  end
+
+  def leaderboards
+    @test_entries = TestEntry.order(wpm: :desc).limit(15)
+    users = User.all
+    @usernames = {}
+
+    users.each do |user|
+      @usernames[user.id] = user.username
+    end
+
+    # @output = usernames.inspect
   end
 
   private
