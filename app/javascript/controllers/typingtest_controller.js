@@ -10,7 +10,7 @@ export default class extends Controller {
     this.wordPos = 0;
     this.correct = 0;
     this.running = false;
-    this.timeLeft = 15;
+    this.timeLeft = 30;
     this.initCaret();
     //wpm = (characters/5) / minutes
   }
@@ -38,19 +38,18 @@ export default class extends Controller {
       this.running = true;
       let tick = window.setInterval(() => {
         this.timeLeft > 0 && this.timeLeft--;
-        document.querySelector('.timer').innerText = this.timeLeft;
+        document.querySelector('.timer').innerText = this.timeLeft - 1;
       }, 1000);
       window.setTimeout(() => {
         clearInterval(tick);
-        this.timeLeft = 15;
-      }, 30000);
+        this.timeLeft = 30;
+        console.log(`wpm is: ${(Math.round(this.correct / 5) / (1 / 2))}`)
+        this.saveEntry();
+      }, 5001);
     }
 
     //finished test
     if (!this.running || this.timeLeft <= 0) {
-      if (e.keyCode != 32) {
-        alert(`wpm is: ${(Math.round(this.correct / 5) / (1 / 4))}`)
-      }
       return;
     }
 
@@ -85,6 +84,10 @@ export default class extends Controller {
     x += pressedSpace ? 0 : 12;
     caret.style.left = `${x}px`;
     caret.style.top = `${y}px`;
+    if (y > this.lastHeight + 10) {
+      this.wordsTarget.scrollTop += 32;
+    }
+    this.lastHeight = y;
 
     //checks if character typed is rorrect
     if (correct && e.key !== ' ' && e.key !== 'Backspace') {
@@ -104,6 +107,22 @@ export default class extends Controller {
     const caret = document.querySelector('.caret');
     caret.style.left = `${x}px`;
     caret.style.top = `${y}px`;
+  }
+
+  saveEntry() {
+    console.log(`wpm is: ${(Math.round(this.correct / 5) / (1 / 2))}`)
+    const wpm = (Math.round(this.correct / 5) / (1 / 2))
+    fetch('/test_entries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        wpm: wpm,
+        accuracy: 100,
+      })
+    })
   }
 
 }
