@@ -1,19 +1,12 @@
-<%# <h1>hoalalalla</h1> %>
 <div data-controller="typingtest" data-action="keypress->typingtest#type 
   focusin->typingtest#focusin focusout->typingtest#focusout"
   tabindex="0"
-  class="stretch static">
+  class="static">
 
   <div class="caret absolute w-0.5 h-8 bg-blue-600 invisible blink"></div>
 
-  <div data-typingtest-target="words" class="border p-8 rounded-lg">
-  <% @testwords.each do |word|%>
-        <div class="text-blue-400 inline mr-2 text-2xl cursor-default">
-          <% word.split('').each do |lt| %>
-            <span class="table-cell font-mono"><%= "#{lt} \t" %></span>
-          <% end %>
-        </div>
-  <% end %>
-  </div>
+  <h2 class="text-3xl text-pink-400 pl-16 font-mono pb-4 timer">15</h2>
+
+  <%= render ('home/test') %>
 
 </div>

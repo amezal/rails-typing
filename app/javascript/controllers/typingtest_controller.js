@@ -20,7 +20,7 @@ export default class extends Controller {
 
   }
   focusout(e) {
-
+    document.querySelector('.caret').classList.add('invisible');
   }
 
   type(e) {
@@ -30,12 +30,16 @@ export default class extends Controller {
     const length = word.childElementCount;
     const caret = document.querySelector('.caret');
     caret.classList.remove('blink');
+    caret.scrollIntoView();
 
     //started test
     if (this.wordPos == 0 && this.charPos == 0 &&
       word.children[0].innerText == e.key) {
       this.running = true;
-      let tick = window.setInterval(() => this.timeLeft--, 1000);
+      let tick = window.setInterval(() => {
+        this.timeLeft > 0 && this.timeLeft--;
+        document.querySelector('.timer').innerText = this.timeLeft;
+      }, 1000);
       window.setTimeout(() => {
         clearInterval(tick);
         this.timeLeft = 15;
@@ -44,7 +48,9 @@ export default class extends Controller {
 
     //finished test
     if (!this.running || this.timeLeft <= 0) {
-      alert(`wpm is: ${(Math.round(this.correct / 5) / (1 / 4))}`)
+      if (e.keyCode != 32) {
+        alert(`wpm is: ${(Math.round(this.correct / 5) / (1 / 4))}`)
+      }
       return;
     }
 

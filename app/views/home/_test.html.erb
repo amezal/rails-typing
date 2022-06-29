@@ -1,0 +1,9 @@
+  <div data-typingtest-target="words" class="px-16 rounded-lg max-h-24 overflow-hidden">
+  <% @testwords.each do |word|%>
+        <div class="text-blue-400 inline mr-2 text-2xl cursor-default">
+          <% word.split('').each do |lt| %>
+            <span class="table-cell font-mono"><%= "#{lt} \t" %></span>
+          <% end %>
+        </div>
+  <% end %>
+  </div>
