@@ -116,6 +116,9 @@ export default class extends Controller {
     const wpm = (Math.round(this.correct / 5) / (1 / 2))
     fetch('/test_entries', {
       method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -125,6 +128,8 @@ export default class extends Controller {
         accuracy: 100,
       })
     })
+      .then(res => res.text())
+      .then(Turbo.renderStreamMessage)
   }
 
   refresh() {
