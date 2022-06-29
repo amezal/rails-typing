@@ -65,6 +65,12 @@ class TestEntriesController < ApplicationController
     end
   end
 
+  def my_profile
+    @test_entries = TestEntry.where("user_id = ?", current_user).order(created_at: :desc)
+    # @test_entries.
+    @xd = 'hola'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_test_entry

@@ -1,0 +1,8 @@
+<h1 class="text-5xl mb-2"><%= current_user.username %></h1>
+<p class="text-gray-300">Member since: <%= current_user.created_at.strftime("%F") %></p>
+
+<h2 class="text-3xl mt-8 mb-4 text-white">Your tests</h2>
+
+<%= render 'test_entries/times' %>
+
+<%= link_to 'Edit profile', edit_user_registration_path, class: 'font-medium text-blue-600 hover:underline dark:text-blue-500 mt-8' %>
