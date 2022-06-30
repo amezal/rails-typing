@@ -58,8 +58,6 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-
-  config.assets.digest = false
   
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 

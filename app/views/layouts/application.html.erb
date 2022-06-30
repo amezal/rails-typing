@@ -9,13 +9,17 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= turbo_include_tags %>
-    <%# javascript_include_tag "flowbite", type: "module-shim" %>
-    <%= javascript_include_tag "stimulus", type: "module-shim" %>
-    <%# javascript_include_tag "controllers", type: "module-shim" %>
-    <%# javascript_include_tag "application", type: "module-shim" %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application' %>
+    <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
+
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
 
   </head>
 
@@ -38,7 +42,6 @@
       <%= yield %>
     </main>
 
-    <%# <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script> %>
-    <%# <script type="module" src="https://ga.jspm.io/npm:flowbite@1.4.7/dist/flowbite.js"></script> %>
+    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   </body>
 </html>
