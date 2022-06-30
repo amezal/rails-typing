@@ -6,11 +6,10 @@ default: &default
 development:
   <<: *default
   database: rails_typing_development
-  username: rails_typing
+  port: 5432
   host: localhost
-  pool: 5
   password: '123'
-
+  
 test:
   <<: *default
   database: rails_typing_test
