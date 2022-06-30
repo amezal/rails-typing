@@ -4,6 +4,7 @@
     "vite-plugin-full-reload": "^1.0.0",
     "vite-plugin-ruby": "^3.0.12"
   },
+  
   "dependencies": {
     "flowbite": "^1.4.7"
   }

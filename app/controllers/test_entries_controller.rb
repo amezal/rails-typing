@@ -1,6 +1,6 @@
 class TestEntriesController < ApplicationController
   before_action :set_test_entry, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except:[:index, :show, :new, :create]
+  before_action :authenticate_user!, except:[:index, :show, :new, :create, :leaderboards]
   # before_action :correct_user, only: [:create, :new]
 
   # GET /test_entries or /test_entries.json
