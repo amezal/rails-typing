@@ -7,6 +7,9 @@ development:
   <<: *default
   database: rails_typing_development
   username: rails_typing
+  host: localhost
+  pool: 5
+  password: '123'
 
 test:
   <<: *default

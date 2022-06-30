@@ -1,10 +1,9 @@
 {
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "vite": "^2.9.13",
     "vite-plugin-full-reload": "^1.0.0",
-    "vite-plugin-ruby": "^3.0.12"
-  },
-  "dependencies": {
+    "vite-plugin-ruby": "^3.0.12",
     "flowbite": "^1.4.7",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0"
