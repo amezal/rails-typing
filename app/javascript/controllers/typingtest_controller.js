@@ -9,7 +9,8 @@ export default class extends Controller {
     this.charPos = 0;
     this.wordPos = 0;
     this.correct = 0;
-    this.running = false;
+    this.wrong =
+      this.running = false;
     this.timeLeft = 30;
     // this.initCaret();
     //wpm = (characters/5) / minutes
@@ -40,14 +41,13 @@ export default class extends Controller {
       this.running = true;
       this.tick = window.setInterval(() => {
         this.timeLeft > 0 && this.timeLeft--;
-        document.querySelector('.timer').innerText = this.timeLeft - 1;
+        document.querySelector('.timer').innerText = this.timeLeft;
       }, 1000);
       this.timer = window.setTimeout(() => {
         clearInterval(this.tick);
         this.timeLeft = 30;
-        console.log(`wpm is: ${(Math.round(this.correct / 5) / (1 / 2))}`)
-        this.saveEntry();
-      }, 5001);
+        this.saveEntry()
+      }, 30001);
     }
 
     //finished test
@@ -76,6 +76,7 @@ export default class extends Controller {
 
     //types letter instead of space in last index
     if (this.charPos >= length) {
+      this.wrong++
       return
     }
 
@@ -98,6 +99,7 @@ export default class extends Controller {
     }
     if (!correct && e.key !== ' ' && e.key !== 'Backspace') {
       letter.classList.add("text-yellow-200");
+      this.wrong++
     }
   }
 
@@ -114,6 +116,7 @@ export default class extends Controller {
   saveEntry() {
     console.log(`wpm is: ${(Math.round(this.correct / 5) / (1 / 2))}`)
     const wpm = (Math.round(this.correct / 5) / (1 / 2))
+    const acc = Math.round(100 * this.correct / (this.correct + this.wrong))
     fetch('/test_entries', {
       method: 'POST',
       mode: 'cors',
@@ -125,7 +128,7 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         wpm: wpm,
-        accuracy: 100,
+        accuracy: acc,
       })
     })
       .then(res => res.text())
